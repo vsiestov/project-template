@@ -1,0 +1,41 @@
+nav.menu__nav
+    ul.menu__list
+        each item, index in ['dalgakiran-россия', 'оборудование', 'Услуги', 'Проекты и решения', 'партнерам', 'библиотека', 'Контакты']
+            li.menu__list-item(class=(page.name === 'compressors' && index === 2) ? 'active' : null)
+                a(href='#')= item
+                if (index === 1)
+                    .menu__sub-list
+                        ul.layout
+                            each subMenu, subIndex in ['Компрессоры', 'Генераторы', 'Мачты освещения']
+                                li.menu__sub-item
+                                    a.menu__sub-link(href='#')= subMenu
+                                    case subIndex
+                                        when 0
+                                            .menu__sub-links-wrap
+                                                +menu__sub-links([
+                                                    'Винтовые маслонаполненные',
+                                                    'Винтовые безмасляные',
+                                                    'Дизельные',
+                                                    'Поршневые'
+                                                ])
+                                                +menu__sub-links([
+                                                    'Для пневматических тормозных систем',
+                                                    'Роторные воздуходувки для роботы под давлением',
+                                                    'Роторные воздуходувки для вакуума',
+                                                    'Подготовка сжатого воздуха'
+                                                ])
+
+                                        when 1
+                                            +menu__sub-links([
+                                                'Дизельные',
+                                                'Газовые',
+                                                'Судовые'
+                                            ])
+
+                        .menu__sub-list-bottom
+                            +menu__sub-links([
+                                'Запчасти и комплектующие',
+                                'Индивидуальная сборка станций',
+                                'Доставка оборудования ',
+                                'Оборудование в рассрочку'
+                            ])

@@ -1,0 +1,13 @@
+doctype
+
+html(lang='ru')
+    head
+        include html-parts/parts/head
+    body
+        .main-wrap
+            include html-parts/parts/header
+            .content-wrap
+                block content
+
+        include html-parts/parts/footer
+        include html-parts/parts/script

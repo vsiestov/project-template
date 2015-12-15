@@ -1,0 +1,18 @@
+.idea/
+.sass-cache/
+.grunt/
+npm-debug.log
+
+node_modules/
+bower_components/
+
+# build/
+
+html-parts/*.html
+*.html
+*.css
+*.map
+*.rar
+*.zip
+*.DS_Store
+ftp.json

@@ -1,0 +1,10 @@
+if (build && build.production)
+
+    script(src="js/lib/lib.min.js")
+    script(src="js/main.min.js")
+
+else
+    script(src='js/lib/promise.min.js')
+    script(src='js/lib/fetch.js')
+
+    script(src='js/main.js')

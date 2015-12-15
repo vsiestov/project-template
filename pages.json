@@ -1,0 +1,11 @@
+{
+    "index": {
+        "build": {
+            "mobile": false,
+            "production": false
+        },
+        "page": {
+            "title": "Главная"
+        }
+    }
+}
