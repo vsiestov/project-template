@@ -2,6 +2,10 @@
     @return ($px / $base) * 1em;
 }
 
+@function rem($px, $base: $font-size) {
+    @return ($px / $base) * 1rem;
+}
+
 @function vw($px, $base: $view-port-width) {
     @return ($px / $base) * 1vw;
 }
@@ -17,12 +21,6 @@
     }
     @else if $point == desktop {
         @media (min-width: 950px) { @content ; }
-    }
-    @else if $point == 1125 {
-        @media (min-width: 1125px) { @content ; }
-    }
-    @else if $point == laptop {
-        @media (min-width: 1200px) { @content ; }
     }
     @else if $point == notebook {
         @media (min-width: 1366px) { @content ; }
@@ -46,6 +44,30 @@
             @content ;
         }
 
+    }
+    @else if ($point == ios) {
+        @media
+        only screen
+        and (max-device-width: 1024px)
+        and (min-device-height: 768px),
+
+        only screen
+        and (min-device-width : 375px)
+        and (max-device-width : 667px),
+
+        only screen
+        and (min-device-width : 414px)
+        and (max-device-width : 736px),
+
+        only screen
+        and (min-device-width : 320px)
+        and (max-device-width : 568px),
+
+        only screen
+        and (min-device-width : 320px)
+        and (max-device-width : 480px) {
+            @content;
+        }
     }
 
 
