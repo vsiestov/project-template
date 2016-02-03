@@ -14,19 +14,94 @@
     @return ($px / $base) * 1vh;
 }
 
-@mixin breakpoint($point) {
+/*
+breakpoints usage example:
+---------------
 
-    @if $point == tablet {
-        @media (min-width: 640px) { @content ; }
-    }
-    @else if $point == desktop {
-        @media (min-width: 950px) { @content ; }
-    }
-    @else if $point == notebook {
-        @media (min-width: 1366px) { @content ; }
-    }
-    @else if $point == large {
-        @media (min-width: 1600px) { @content ; }
+$points: (
+    (xsmall, 320px),
+    (small, 640px),
+    (middle, 768px),
+    (large, 1020px),
+    (xlarge, 1280px),
+    (xxlarge, 1340px)
+);
+breakpoint(small) will generate:            @media (min-width: 640px) - default. Just from small point.
+breakpoint(smalltill) will generate:        @media (max-width: 639px) - from 0 to small point
+breakpoint(smallonly) will generate:        @media (min-width: 640px) and (max-width: 767px) - from small to next point
+breakpoint((small, xlarge)) will generate:  @media (min-width: 640px) and (max-width: 1279px) - from src point to dest point
+
+======
+
+where [..]till, [..]only - reserved words for range breakpoints
+Also reserved words are:
+    - landscape
+    - portrait
+    - ios
+    - retina
+*/
+@mixin breakpoint($point) {
+    $key: 1;
+    $points: (
+                    (xsmall, 320px),
+                    (small, 640px),
+                    (middle, 768px),
+                    (large, 1020px),
+                    (xlarge, 1280px),
+                    (xxlarge, 1340px)
+    );
+
+    @if length($point) == 2 {
+        $media1: null;
+        $media2: null;
+        @each $pt1 in $points {
+            @if nth($point, 1) == nth($pt1, 1) {
+                $media1: nth($pt1, 2);
+            }
+        }
+        @each $pt2 in $points {
+            @if nth($point, 2) == nth($pt2, 1) {
+                $media2: nth($pt2, 2) - 1px;
+            }
+        }
+        @if ($media1) {
+            @if ($media2) {
+                @media (min-width: $media1) and (max-width: $media2) {
+                    @content;
+                }
+            }
+        }
+    } @else {
+
+        @each $pt in $points {
+            // from
+            @if $point == nth($pt, 1) {
+                @media (min-width: nth($pt, 2)) {
+                    @content;
+                }
+            }
+            // to
+            @if ($point == unquote(#{nth($pt, 1)}till)) {
+                @media (max-width: nth($pt, 2) - 1) {
+                    @content;
+                }
+            }
+            // only
+            @if ($point == unquote(#{nth($pt, 1)}only)) {
+                // check for next
+                @if length($points) > $key {
+                    $item: nth($points, $key + 1);
+                    @media (min-width: nth($pt, 2)) and (max-width: nth($item, 2) - 1) {
+                        @content;
+                    }
+                } @else {
+                    @media (min-width: nth($pt, 2)) {
+                        @content;
+                    }
+                }
+            }
+            $key: $key + 1;
+        }
     }
     @else if $point == landscape {
         @media (min-aspect-ratio: 13/9) {
