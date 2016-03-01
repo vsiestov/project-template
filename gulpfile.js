@@ -10,7 +10,7 @@ function includeDependencies() {
     "use strict";
 
     if (process.platform === "win32") {
-        modulePath = 'C:/Users/valera.siestov/AppData/Roaming/npm/';
+        modulePath = 'C:/Users/bikkuri/AppData/Roaming/npm/node_modules/';
     } else {
         modulePath = '/usr/local/lib/node_modules/';
     }
