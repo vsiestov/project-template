@@ -1,3 +1,3 @@
-# ProjectName Front-End [mod]
+# ProjectName Front-End
 
 ## Demo pages
